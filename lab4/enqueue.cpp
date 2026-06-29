@@ -1,37 +1,37 @@
 #include<iostream>
 using namespace std;
-#define MAX 30
+#define MAX 300
 class queue {
     private:
     int a[MAX];
-    int st = -1;
+    int front = 0;
+    int rear = -1;
 
     public:
     void enqueue(int n) {
-        if( st == MAX - 1) {
+        if( rear == MAX - 1) {
             cout<<"Queue overflow"<<endl;
         } else {
-            st++;
-            a[st] = n;
+            rear++;
+            a[rear] = n;
             cout<<n<<" is added to the queue"<< endl;
         }
     }
     int dequeue() {
         int i, v;
-        if(st == -1) {
+        if( front >rear) {
             cout<<"Queue underflow"<< endl;
+            return -1;
         } else {
-            v = a[0];
-            for(i = 0; i<st; i++) {
-                a[i] = a[i+1];
-            }
-            st--;
+            v = a[front];
+            front ++;
+            cout<<v<<"  is dequeued"<<endl;
             return v;
         }
     }
     void display() {
         int i;
-        for(i = 0; i<= st; i ++) {
+        for(i = front; i<= rear; i ++) {
             cout<<a[i]<<" ";
         }
         cout<<endl;
