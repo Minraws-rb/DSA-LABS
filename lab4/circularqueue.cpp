@@ -19,8 +19,13 @@ public:
     void enqueue(int n) {
         if (count == MAX) {
             cout << "Queue overflow" << endl;
+            return;
         } else {
-            rear = (rear + 1) % MAX;
+            if(rear+1 == MAX){
+                rear = 0;
+            }else{
+                rear++;
+            }
             a[rear] = n;
             count++;
             cout << n << " is added to the queue" << endl;
@@ -33,31 +38,35 @@ public:
             return -1;
         } else {
             int v = a[front];
-            front = (front + 1) % MAX;
+            if(front+1 == MAX) {
+                front = 0;
+            } else {
+                front ++;
+             }
             count--;
             return v;
         }
     }
 
-    void display() {
-        if (count == 0) {
-            cout << "Queue is empty" << endl;
-        } else {
-            cout << "Queue: ";
-            for (int i = 0; i < count; i++) {
-                cout << a[(front + i) % MAX] << " ";
+   void display() {
+    if (count == 0) {
+        cout << "Queue is empty" << endl;
+        return;
+    }
+
+    cout << "Queue: ";
+
+    int i = front;
+    for (int j = 0; j < count; j++) {
+        cout << a[i] << " ";
+           if(i+1 == MAX){
+                i = 0;
+            }else{
+                i++;
             }
-            cout << endl;
-        }
     }
-
-    bool isFull() {
-        return count == MAX;
-    }
-
-    bool isEmpty() {
-        return count == 0;
-    }
+    cout << endl;
+}
 };
 
 int main() {
@@ -68,22 +77,19 @@ int main() {
     q.enqueue(5);
     q.enqueue(8);
     q.display();
-
-    q.enqueue(10);      // overflow — queue is full
-
-    q.dequeue();        // removes 2
-    q.dequeue();        // removes 4
+    q.enqueue(10);     
+    q.dequeue();       
+    q.dequeue();        
     q.display();
-
-    q.enqueue(10);      // wraps around — fills slot 0
-    q.enqueue(20);      // fills slot 1
+    q.enqueue(10);    
+    q.enqueue(20);     
     q.display();
-
     q.dequeue();
     q.dequeue();
     q.dequeue();
     q.dequeue();
+    q.display();
     q.dequeue();
-    q.dequeue();        // underflow
+    q.dequeue();       
     return 0;
 }
