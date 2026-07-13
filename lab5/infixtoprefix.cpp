@@ -16,19 +16,18 @@ char topostfix(string exp){
         if(isalnum(exp[i])){
             postexp[j] = exp[i];
             j++;
-            cout<<"inserting alphanum"<<endl;
+            cout<<"inserting alphanum "<<exp[i]<<endl;
         }
         else if(exp[i] == '(') {
             s.push(exp[i]);
-            cout<<"( pushing"<<endl;
+            cout<<"( pushing " <<endl;
         }
         else if(exp[i] == ')') {
              while(s.top() != '(' && !s.empty()){
-                
+                cout<<"poppping between ("<<s.top()<<" )"<<endl;
                  postexp[j] = s.top();
                  s.pop();
                  j++;
-                 cout<<"poppping between ( )"<<endl;
              }
              s.pop();
              cout<<" popping )"<<endl;
@@ -36,21 +35,23 @@ char topostfix(string exp){
         }
         else if(!s.empty() && precedence(exp[i]) <= precedence(s.top())) {
             postexp[j] = s.top();
+            cout<<"pop "<<s.top()<<" ";
             s.pop();
             j++;
             s.push(exp[i]);
-            cout<<"<= push pop"<< endl;
+            cout<<"Push"<<s.top()<<endl;
+            
         }
         else {
             s.push(exp[i]);
-            cout<<" else wala push"<<endl;
+            cout<<" else wala push "<<exp[i]<<endl;
         }
     }
     while(!s.empty()){
+        cout<<"all remaining "<<s.top()<<endl;
         postexp[j] = s.top();
         j++;
         s.pop();
-        cout<<"all remaining"<<endl;
     }
     for(i = 0; i< exp.length(); i++){
         cout<<postexp[i];
@@ -59,9 +60,9 @@ char topostfix(string exp){
     return *postexp;
 }
 int main() {
-    string exp = "(a+b)";
+    string exp ;
     cout<<"Enter the expression"<<endl;
-    // cin>>exp;
+    cin>>exp; 
     cout<<endl;
     cout<<" "<< topostfix(exp)<<endl;
     return 0;
