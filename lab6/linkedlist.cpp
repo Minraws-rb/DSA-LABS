@@ -77,6 +77,46 @@ class List {
         tail = temp;
         
     }
+    void push_at_any_position(int val, int pos) {
+        int i = 1;
+        if(pos <= 1 || head == NULL ){
+            push_front(val);
+            return;
+        }
+        Node* newNode = new Node(val);
+        Node* temp = head;
+        for(i = 1; i< pos-1 && temp->next != NULL; i++) {
+            temp = temp->next;
+        }
+        newNode->next = temp->next;
+        temp->next = newNode;
+        
+    }
+    
+    void pop_at_any_position(int pos) {
+        if(head == NULL) {
+            cout<<"Linkedlist is empty"<<endl;
+            return;
+        }
+        if(pos = 1) {
+            pop_front();
+            return;
+        }
+        Node* temp = head;
+        for(int i = 1; i<pos-1 && temp->next != 0; i++) {
+            temp = temp->next;
+        }
+        if(temp->next == NULL) {
+            cout<<"invalid position"<<endl;
+            return;
+        }
+        Node* ntbd;
+        ntbd = temp->next;
+        temp->next = ntbd->next;
+        delete ntbd;
+        
+    }
+    
     void display() {
         if(head == NULL) {
             cout<<"empty LL"<<endl;
@@ -99,6 +139,7 @@ int main() {
     ll.push_front(3);
     ll.push_back(0);
     ll.push_back(-1);
+    ll.push_at_any_position(4, 3);
     ll.display();
     ll.pop_front();
     ll.pop_front();
